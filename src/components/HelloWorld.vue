@@ -31,8 +31,8 @@
       <div class="containr mt-4 pa-0">
         <h3 class="header-bigcard">پر فروش ترین ها</h3>
       </div>
-
-      <bigcard></bigcard>
+        
+      <bigcard :items1="products1"></bigcard>
     </article>
     <article class="bg-SwiperSlider shadow-lg mt-4 pa-0">
       <div class="containr my-4 pa-0">
@@ -44,7 +44,8 @@
             </div>
             <h2>تخفیف های ویژه</h2>
           </div>
-          <SwiperSlider :cols="3" />
+         
+          <SwiperSlider :cols="3" :items="products2" />
         </div>
       </div>
     </article>
@@ -71,7 +72,7 @@
       <div class="containr mt-4 pa-0">
         <h3 class="header-bigcard">جدید ترین محصولات</h3>
       </div>
-      <bigcard></bigcard>
+      <bigcard :items1="products3"></bigcard>
     </article>
     <article class="bg-SwiperSlider2 shadow-lg mt-4 pa-0">
       <div class="containr my-4 pa-0">
@@ -83,26 +84,77 @@
             </div>
             <h2>دسته بندی</h2>
           </div>
-          <SwiperSlider :cols="3"/>
+          <SwiperSlider :cols="3" :items="products2" />
         </div>
       </div>
     </article>
-    <article>
+    <article class="mb-4">
       <div class="containr mt-4 pa-0">
         <h3 class="header-bigcard">جدید ترین محصولات</h3>
       </div>
-      <bigcard></bigcard>
+      <bigcard :items1="products4"></bigcard>
     </article>
   </div>
 </template>
 
-<script setup>
+<script >
+import axios from "../../axios.congfig";
 import SwiperSlider from "./SwiperSlider.vue";
 import bigcard from "../components/home/bigcard.vue";
 import Slider1 from "./home/slider1.vue";
 import slidecard from "./local/slidecard.vue";
 import slidebigcard from "./local/slidebigcard.vue";
 import slidemediumcard from "./local/slidemediumcard.vue";
+export default {
+
+  components:{
+    SwiperSlider,
+    bigcard,
+    Slider1,
+    slidecard,
+    slidebigcard,
+    slidemediumcard
+  },
+  data() {
+    return {
+      products:[]
+    }
+  },
+  computed:{
+  
+    products1(){
+      return this.products.slice(0,8)
+    },
+    products2(){
+      return this.products.slice(14,19)
+    },
+    products3(){
+      const products = [...this.products1, ...this.products2]
+      return products.slice(5,16)
+    },
+    products4(){
+      return this.products.slice(8,16)
+    },
+
+  },
+  created(){
+    this.$store.dispatch("AllProducts")
+    
+     axios.get('/products').then((res)=>{
+      this.products = res.data
+     
+     })
+  }
+  
+  
+  
+  
+  }
+
+
+
+
+
 </script>
 
 

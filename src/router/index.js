@@ -5,28 +5,64 @@ const routes = [
   {
     path: '/',
     name: 'home',
-    component: HomeView
+    component: HomeView,
+    children:[
+      {
+        path: '',
+        name: 'HelloWorld',
+        component: () => import(/* webpackChunkName: "HelloWorld" */ '../components/HelloWorld.vue')
+      },
+      {
+        path: '/about',
+        name: 'about',
+       
+        component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
+      },
+      {
+        path: '/store',
+        name: 'store',
+       
+        component: () => import(/* webpackChunkName: "Store" */ '../views/Store.vue')
+      },
+      {
+        path: '/contact',
+        name: 'contact',
+       
+        component: () => import(/* webpackChunkName: "Store" */ '../views/contact.vue')
+      },
+      {
+        path: '/cart',
+        name: 'cart',
+       
+        component: () => import(/* webpackChunkName: "Store" */ '../views/cart.vue')
+      },
+      {
+        path: '/productpage:id',
+        name: 'productpage',
+        component: () => import(/* webpackChunkName: "productpage" */ '../components/productpage.vue'),
+        
+      }
+
+    ]
   },
   {
-    path: '/about',
-    name: 'about',
+    path: '/login',
+    name: 'login',
    
-    component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
+    component: () => import(/* webpackChunkName: "login" */ '../views/auth/login.vue')
   },
   {
-    path: '/store',
-    name: 'store',
+    path: '/Register',
+    name: 'Register',
    
-    component: () => import(/* webpackChunkName: "Store" */ '../views/Store.vue')
+    component: () => import(/* webpackChunkName: "Register" */ '../views/auth/Register.vue')
   },
-  {
-    path: '/productpage',
-    name: 'productpage',
-    component: () => import(/* webpackChunkName: "productpage" */ '../components/productpage.vue')
-  }
 ]
 
 const router = createRouter({
+  scrollBehavior() {
+    document.getElementById('app').scrollIntoView({ behavior: 'smooth' });
+},
   history: createWebHistory(process.env.BASE_URL),
   routes
 })

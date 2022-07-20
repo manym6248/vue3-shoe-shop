@@ -1,5 +1,5 @@
 <template>
-    <div class="slide rounded-3">
+    <div class="slide ">
         <div class="container">
             <div class="row">
                 <div class="col-6 col1" >
@@ -33,6 +33,7 @@
     .container{
         height: 100%;
         .row{
+            
             height: 100%;
             .col1{
                 height: 50%;
@@ -46,8 +47,14 @@
     }
     height: 100%;
     width: 100%;
-    background-color: antiquewhite;
+  
     .row{
+        color: white;
+         background: linear-gradient(
+      135deg,
+      rgba(240, 155, 0, 0.6951155462184874) 46%,
+      rgba(61, 62, 116, 1) 46%
+    );
         .image{
     height: 100%;
     width: 100%;

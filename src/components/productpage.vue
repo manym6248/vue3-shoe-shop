@@ -5,11 +5,11 @@
         <div class="card-product">
           <div class="row">
             <div class="col-img col-lg-4 col-xl-4 col-md-4 col-sm-12 col-12">
-              <div class="img-product card shadow">
+              <div class="img-product card shadow" >
                 <div class="img">
                   <inner-image-zoom
-                    :src="img.src"
-                    :zoomSrc="img.src"
+                    :src="item.image"
+                    :zoomSrc="item.imge"
                     width="320"
                     height="300"
                   />
@@ -50,20 +50,16 @@
             <div class="col-text col-lg-8 col-xl-8 col-md-8 col-sm-12 col-12">
               <div class="card shadow text-product">
                 <div class="name">
-                  <h1>نایک 6000</h1>
+                  <h1 class="ext-truncate"> {{item.title}}</h1>
                 </div>
-                <h3 class="price">990000 ریال</h3>
+                <h3 class="price">{{item.price}}$</h3>
                 <div class="description">
                   <p>
-                    لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و
-                    با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه
-                    و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی
-                    تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای
-                    کاربردی می باشد،
+                   {{item.description}}
                   </p>
                 </div>
                 <div class="Discount">
-                  <h3>60%</h3>
+                  <h3>{{(item?.id*6)/2}}%</h3>
                 </div>
                 <div class="size">
                   <div class="row">
@@ -239,9 +235,9 @@
                   id="floatingTextarea2"
                   style="height: 100px"
                 ></textarea>
-                 <div class="row my-3 px-2">
+                <div class="row my-3 px-2">
                   <button class="btn btn-primary">ارسال دیدگاه</button>
-                 </div>
+                </div>
               </div>
             </div>
           </div>
@@ -253,19 +249,68 @@
       <div class="containr my-4 pa-0">
         <h3 class="header-Slider">محصولات مرتبط</h3>
         <div class="row-SwiperSlider">
-          <SwiperSlider :cols="4" />
+          <SwiperSlider :cols="4" :items="items" />
         </div>
       </div>
     </article>
   </div>
 </template>
 
-<script setup>
-import { reactive } from "@vue/reactivity";
+<script >
 import InnerImageZoom from "vue-inner-image-zoom";
 import { Swiper, SwiperSlide } from "swiper/vue";
 import SwiperSlider from "../components/SwiperSlider";
-const img = reactive({ src: require("../assets/png/1.png") });
+import axios from '../../axios.congfig'
+
+export default {
+  components: {
+    InnerImageZoom,
+    Swiper,
+    SwiperSlide,
+    SwiperSlider,
+  },
+  data() {
+    return {
+      item:{},
+      items:[]
+
+    };
+  },
+  created(){
+    axios.get(`/products/${this.$route.params.id}`).then(
+      (res)=>{
+        this.item = {...res.data};
+      }
+    )
+    axios.get(`/products?limit=6`).then(
+      (res)=>{
+        this.items = [...res.data];
+      }
+    )
+  },
+  
+  methods:{
+        scrollToTop(){
+    window.scrollTo(0,0);
+  }
+  },
+  watch:{
+    '$route.params.id':function(oldvalue, newvalue){
+      if(oldvalue != newvalue){
+         axios.get(`/products/${this.$route.params.id}`).then(
+      (res)=>{
+        this.item = {...res.data};
+         window.scrollTo(0,0);
+      }
+    )
+     
+  
+      };
+    }
+
+  }
+};
+
 </script>
 
 <style lang="scss" scoped>
@@ -276,7 +321,6 @@ const img = reactive({ src: require("../assets/png/1.png") });
   position: relative;
   list-style: none;
   text-align: right;
-  
 }
 
 .timeline .timeline-item {
@@ -413,6 +457,9 @@ const img = reactive({ src: require("../assets/png/1.png") });
 
       .name {
         padding: 32px;
+        h1{
+          width: 80%;
+        }
       }
     }
   }

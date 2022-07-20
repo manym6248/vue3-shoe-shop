@@ -1,7 +1,8 @@
 <template>
-    <div class="slide2 rounded-3">
+    <div class="slide2">
         <div class="container">
             <div class="row">
+                
                 <div class="col-6 col1" >
                     <h2>کانکشن بهاره</h2>
                     <h5>با تخفیف ویژه خرید اینرنتی</h5>
@@ -34,14 +35,20 @@
     height: 100%;
     width: 100%;
 
-    background-color: antiquewhite;
+     background-color: rgb(240, 155, 0);
      .container{
         height: 100%;
         .row{
             height: 100%;
         }
     }
-    .row{
+    .row{ 
+           color: white;
+         background: linear-gradient(
+      135deg,
+      rgba(240, 155, 0, 0.6951155462184874) 46%,
+      rgba(61, 62, 116, 1) 46%
+    );
         .image{
     height: 100%;
     width: 100%;

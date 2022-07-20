@@ -7,51 +7,49 @@
     :modules="modules"
     class="mySwiper rounded-3"
   >
+  {{items}}
     <swiper-slide v-for="item in items" :key="item">
-      <card :item="items.src" class="rounded-3"></card>
+      <card :item="item" class="rounded-3"></card>
     </swiper-slide>
   </swiper>
 </template>
-<script setup >
+<script  >
 import { Swiper, SwiperSlide } from "swiper/vue";
 import card from "./local/card.vue";
 import "swiper/css";
 import "swiper/css/pagination";
 import { Navigation } from "swiper";
-import { reactive } from "vue";
 
-const props = defineProps({
-  cols: Number,
-});
+export default {
+  
+  props: {cols:Number, items:Array},
+  components: {
+    Navigation,
+    card,
+    Swiper,
+    SwiperSlide,
+  },
+  data(){
+    return{
 
-const items = reactive([
-  { src: "../assets/png/1.png", name: "2" },
-  { src: "../assets/png/2.png", name: "2" },
-  { src: "../assets/png/3.png", name: "2" },
-  { src: "../assets/png/4.png", name: "2" },
-  { src: "../assets/png/5.png", name: "2" },
-]);
-const options = reactive({
-      '640': {
-        slidesPerView: 2,
-        spaceBetween: 20,
-      },
-      '768': {
-        slidesPerView: 2,
-        spaceBetween: 40,
-      },
-      '1024': {
-        slidesPerView: props.cols,
-        spaceBetween: 30,
-      },
-    });
-
-
-
-
-
-
-
+      options:{
+          640: {
+    slidesPerView: 2,
+    spaceBetween: 20,
+  },
+  768: {
+    slidesPerView: 2,
+    spaceBetween: 40,
+  },
+  1024: {
+    slidesPerView: this.cols,
+    spaceBetween: 30,
+  },
+      }
+    }
+  },
+ 
+};
 
 
 </script>

@@ -1,48 +1,65 @@
 <template>
-  <router-link class="card shadow rounded-3" :to="{ path: '/productpage' }">
+<div class="card shadow rounded-3 overflow-hidden">
     <div class="img rounded-3">
-      <div class="Discount  ">
-        <h5>60%</h5>
+
+  <router-link
+    
+    :to="{ name: 'productpage' , params:{id:item.id} }"
+    
+  >
+      <div class="Discount">
+        <h5>{{(item?.id*6)/2}}%</h5>
       </div>
       <img
         class="img-fluid image rounded-3"
-        src="../../assets/png/3.png"
+        :src="item?.image"
         alt=""
       />
-      <div class="textcart rounded-3">
-        <h4>نایک</h4>
-        <div class="row">
-          <div class="col-6"><h5>200000</h5></div>
+  </router-link>
+      <div class="textcart">
+        <div class="row row-name m-0 mb-1">
+          <div class="col-6">
+            <h4 class="text-truncate">{{item?.title }}</h4>
+          </div>
           <div class="col-6">
             <div class="row1">
-              <i class="bi bi-star"></i>
-              <i class="bi bi-star"></i>
-              <i class="bi bi-star"></i>
-              <i class="bi bi-star"></i>
-              <i class="bi bi-star"></i>
+              <h5>{{item?.price}}$</h5>
             </div>
           </div>
         </div>
         <div class="r2">
-          <button class="b1 btn btn-green"><i class="bi bi-plus"></i></button>
-          <button class="b2 btn btn-green">مشاهده محصول</button>
+          <button class="b1 btn btn-primary" @click.self="addTocart(item?.id)">+</button>
+          <button class="b2 btn btn-primary" @click="gopage(item?.id)">مشاهده</button>
         </div>
       </div>
     </div>
-  </router-link>
+</div>
 </template>
 
 <script>
-import { reactive } from "@vue/reactivity";
+
 export default {
-  props: ["item"],
-  setup(props) {
-    const item = reactive(props.item);
+  props: ['item'],
+  methods:{
+    addTocart(id){
+        this.$store.commit('ADD_TO_CART', id)
+        
+    },
+    gopage(id){
+
+      this.$router.push({ name: 'productpage' , params:{id:id} })
+    }
+
   },
+
+  created(){
+  }
+
 };
 </script>
 
 <style lang="scss" scoped>
+@import '../../assets/scss/main.scss';
 @mixin Discount-img {
   content: "";
   display: block;
@@ -50,16 +67,17 @@ export default {
   border-radius: 0px 50px;
 }
 .Discount {
-    position: absolute;
-    width: 50px;
-    height: 50px;
-    background-color: #fb8c00;
-    left: 12px;
-    top: 9px;
-    text-align: center;
-    color: white;
-    border-radius: 50px;
-  h5{
+  z-index: 1;
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  background-color: #fb8c00;
+  left: 12px;
+  top: 9px;
+  text-align: center;
+  color: white;
+  border-radius: 50px;
+  h5 {
     padding-top: 15px;
   }
 }
@@ -67,12 +85,28 @@ export default {
   width: 100%;
   height: 310px;
   border: none;
-
+  &:hover {
+    .textcart {
+      animation: move3 0.35s ease-in-out forwards;
+    }
+  }
+  @keyframes move3 {
+    from {
+      transform: translateY(150px);
+      height: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+      height: 94px !important;
+      
+    }
+  }
   .img {
     position: relative;
     width: 100%;
     height: 100%;
-    background-color: rgba(37, 245, 148, 0.411);
+
     .image {
       position: absolute;
       width: 80%;
@@ -82,26 +116,32 @@ export default {
       z-index: 0;
     }
     .textcart {
+      
+      opacity: 0;
+      background-color: #00000082;
       position: absolute;
       bottom: 0;
       width: 100%;
-      height: 124px;
+      height: 94px;
       text-align: right;
       padding: 9px;
       color: #ffff;
-      background: linear-gradient(
-        0deg,
-        rgba(208, 208, 208, 1) 0%,
-        rgba(124, 124, 124, 1) 0%,
-        rgba(61, 48, 96, 0) 80%
-      );
+      border-radius: 0px 0px 0.5em 0.5em;
+      .row-name {
+        align-items: flex-end;
+      h5 {
+        color: #fb8c00;
+        text-shadow: 0px 1px 3px;
+      }
+      h4 {
+        text-shadow: 0px 1px 3px;
+      }
+      }
+
       .row1 {
         display: flex;
         flex-direction: row;
         direction: ltr;
-        i {
-          color: rgb(240, 196, 3);
-        }
       }
       .r2 {
         width: 100%;
@@ -112,7 +152,7 @@ export default {
         .b1 {
           height: 38px;
           width: 25%;
-          background-color: darkgreen;
+
           i {
             font-size: 16px;
             font-weight: bold;
@@ -123,11 +163,19 @@ export default {
           height: 38px;
           width: 73%;
           margin-right: 5px;
-          background-color: rgb(118, 219, 223);
-          color: darkgreen;
+          color: white;
         }
       }
     }
+  }
+}
+
+@media #{$bp-max-ms} {
+  .textcart{
+      opacity: 1 !important ;
+      height: 94px !important ;
+      animation: unset !important;
+
   }
 }
 </style>
