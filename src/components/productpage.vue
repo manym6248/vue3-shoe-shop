@@ -137,12 +137,14 @@
                     </div>
                   </div>
                 </div>
-                <div class="btns">
-                  <div class="row">
-                    <button class="btn btn-primary">خرید</button>
-                    <button class="btn btn-primary">اشترک گذاری</button>
-                  </div>
-                </div>
+               <div class="row">
+
+                    <button class="btn btn-primary" @click="gotocart(item?.id)">خرید</button>
+               </div>
+                  
+
+             
+              
               </div>
             </div>
           </div>
@@ -276,6 +278,8 @@ export default {
 
     };
   },
+
+ 
   created(){
     axios.get(`/products/${this.$route.params.id}`).then(
       (res)=>{
@@ -292,7 +296,10 @@ export default {
   methods:{
         scrollToTop(){
     window.scrollTo(0,0);
-  }
+  },
+   gotocart(id){
+              this.$store.commit('ADD_TO_CART', id)
+    },
   },
   watch:{
     '$route.params.id':function(oldvalue, newvalue){
@@ -442,18 +449,7 @@ export default {
       .colors {
         @include input-row;
       }
-      .btns {
-        padding: 24px;
-        padding-top: 0;
-        .row {
-          margin: 0;
-          .btn {
-            width: 25%;
-            height: 40px;
-            margin: 5px;
-          }
-        }
-      }
+      
 
       .name {
         padding: 32px;

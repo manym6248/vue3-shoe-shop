@@ -8,9 +8,27 @@ const state = {
     // sbad kharid
 
     cartItem(state){
-      let itemcart = state.cart.map(itemid => state.Product.find(product => product.id ===itemid))
-      console.log(itemcart);
+      let itemcart = state.cart.map((itemid) => {
+       let item =  state.Product.find(product => product.id ===itemid)
+       item.count=+1
+       item.Discount = (item.id*6)/2
+       let  x = (item.price) * (((item.id*6)/2)/100)
+       item.price = item.price - x.toFixed(2)
+       return item;
+    })
       return Array.from(new Set(itemcart));
+    },
+
+
+
+    totalprice(state){
+      let totalprice = state.cart.map((itemid) => {
+       let item =  state.Product.find(product => product.id ===itemid)
+     
+       return item.price;
+    })
+   
+      return Array.from(new Set(totalprice));
     },
 
 

@@ -25,10 +25,6 @@ $body-bg: #f3f3f0;
   margin-right: auto;
 }
 
-
-
-
-
 @media #{$bp-xs} {
   .containr {
     width: 98%;
@@ -55,24 +51,7 @@ $body-bg: #f3f3f0;
     width: 1140px;
   }
 }
-@media #{$bp-max-ms} {
-       .navbar-nav{
-        display: none !important;
-       }
-       .search{
-         
-         display: none  ;
-       }
-       .login{
-         display: none  !important;
 
-       }
-       .cart{
-         display: none  !important;
-
-       }
-
-}
 @media #{$bp-min-ms}{
   .offcanvas{
     display: none !important;

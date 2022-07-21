@@ -3,7 +3,35 @@
     <div class="ma-0 mx-1 pa-1 item-row">
       <div class="containr">
         <div class="row m-0 row-link">
+
           <div class="col-6">
+              <div class="row row3">
+                 
+                  <div class="col-3 ">
+                    <router-link
+                      tag="li"
+                      class="item rounded-circle btn1 position-relative  mt-3"
+                      to="/cart"
+                    >
+                      <a class="nav-link cart2  mt-1 ">
+                        <i class="bi bi-cart3 m-6"></i>
+
+                        <span
+                          class="
+                            position-absolute
+                            start-100
+                            translate-middle
+                            badge
+                            rounded-pill
+                            bg-danger
+                          "
+                        >
+                         {{cartConter.length}}
+                        </span>
+                      </a>
+                    </router-link>
+                  </div>
+                </div>
             <ul class="navbar-nav me-auto mb-2 mb-lg-0 mr-1">
               <router-link tag="li" class="nav-item mr-3" to="/" exact
                 ><a class="nav-link"> صحفه اصلی </a>
@@ -103,8 +131,8 @@
     </div>
     <div class="offcanvas-body position-relative p-0">
       <div class="list-group m-2 my-0 rounded-0">
-        <a
-          href="#"
+        <router-link
+           to="/"
           class="
             list-group-item list-group-item-action
             m-1
@@ -112,10 +140,10 @@
             rounded-pill
             shadow
           "
-          >صحفه اصلی</a
+          >صحفه اصلی</router-link
         >
-        <a
-          href="#"
+        <router-link
+       to="/Store"
           class="
             list-group-item list-group-item-action
             m-1
@@ -123,10 +151,10 @@
             rounded-pill
             shadow
           "
-          >فروشگاه</a
+          >فروشگاه</router-link
         >
-        <a
-          href="#"
+        <router-link
+        to="/about"
           class="
             list-group-item list-group-item-action
             m-1
@@ -134,10 +162,10 @@
             rounded-pill
             shadow
           "
-          >درباره ما</a
+          >درباره ما</router-link
         >
-        <a
-          href="#"
+        <router-link
+           to="/contact"
           class="
             list-group-item list-group-item-action
             m-1
@@ -145,15 +173,27 @@
             rounded-pill
             shadow
           "
-          >تماس با ما</a
+          >تماس با ما</router-link
         >
       </div>
-      <div class="position-absolute bottom-0 footer-offcanvas"></div>
+      <div class="position-absolute bottom-0 footer-offcanvas">
+       <div class="row m-0">
+                  <div class="col-12">
+                    <router-link
+                      tag="li"
+                      class="item  "
+                      to="/login"
+                    >
+                      ورود
+                    </router-link>
+                  </div>
+                </div>
+      </div>
     </div>
   </div>
   <div class="spacer"></div>
   <router-view class="pt-16" />
-  <footer class="footer">
+  <footer class="footer bottom">
     <div class="end">
       <div class="row p-0 m-0">
         <div class="col-11">
@@ -195,6 +235,18 @@ $primary: rebeccapurple;
   height: 50px;
   width: 100%;
   background-color: $color-primary;
+  .row{
+    height: 100%;
+    align-items: center;
+    a{
+      color: white;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    display: block;
+    padding: 12px;
+    }
+  }
 }
 .row-link {
   height: 100%;
@@ -256,6 +308,10 @@ $primary: rebeccapurple;
   }
 }
 @media #{$bp-min-ms} {
+  .cart2{
+    
+    display: none !important;
+  }
   .offcanvas {
     display: none !important;
   }
@@ -265,6 +321,9 @@ $primary: rebeccapurple;
 }
 
 .row2 {
+  align-items: center;
+}
+.row3 {
   align-items: center;
 }
 @mixin link1 {

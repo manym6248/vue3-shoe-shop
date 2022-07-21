@@ -147,7 +147,10 @@
           </div>
         </div>
 
-        <div class="row">
+        <div class="row productsrow">
+          <div class="lodin-card" v-if="items.length == 0">
+         <loading></loading>
+        </div>
           <div
             class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6"
             v-for="item in items"
@@ -182,10 +185,12 @@
 
 <script >
 import card from "../components/local/card.vue";
+import loading from "../components/local/loading"
 import axios from "../../axios.congfig";
 export default {
   components: {
     card,
+    loading
   },
   data() {
     return {
@@ -241,6 +246,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.productsrow{
+  min-height: 400px;
+}
+.lodin-card {
+
+  width: 100%;
+}
 @import "../assets/scss/main.scss";
 .row-algin {
   align-items: center;
