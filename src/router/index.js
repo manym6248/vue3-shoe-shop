@@ -57,6 +57,25 @@ const routes = [
    
     component: () => import(/* webpackChunkName: "Register" */ '../views/auth/Register.vue')
   },
+  {
+    path: '/panel',
+    name: 'panel',
+    component: () => import(/* webpackChunkName: "panel" */ '../adminpanel/Panel.vue'),
+    children:[
+      {
+        path: '/Productlist',
+        name: 'Productlist',
+       
+        component: () => import(/* webpackChunkName: "Productlist" */ '../adminpanel/products/Productlist.vue')
+      },
+      {
+        path: '/AddProduct',
+        name: 'AddProduct',
+       
+        component: () => import(/* webpackChunkName: "AddProduct" */ '../adminpanel/products/AddProduct.vue')
+      },
+    ]
+  },
 ]
 
 const router = createRouter({

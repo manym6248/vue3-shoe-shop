@@ -7,14 +7,14 @@
     :modules="modules"
     class="mySwiper rounded-3"
   >
-  {{items}}
+
     <swiper-slide v-for="item in items" :key="item">
       <card :item="item" class="rounded-3"></card>
     </swiper-slide>
   </swiper>
 </template>
 <script  >
-import { Swiper, SwiperSlide } from "swiper/vue";
+import { Swiper, SwiperSlide,  } from "swiper/vue";
 import card from "./local/card.vue";
 import "swiper/css";
 import "swiper/css/pagination";
@@ -22,7 +22,7 @@ import { Navigation } from "swiper";
 
 export default {
   
-  props: {cols:Number, items:Array},
+  props: {cols:Number, items:Array },
   components: {
     Navigation,
     card,
@@ -48,9 +48,14 @@ export default {
       }
     }
   },
+  
  
+ setup() {
+    return {
+      modules: [Navigation],
+    };
+  },
 };
-
 
 </script>
 

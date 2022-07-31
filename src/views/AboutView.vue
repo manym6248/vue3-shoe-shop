@@ -43,9 +43,9 @@
                 <div class="card-body">
                   <h5 class="fw-bold mb-3 pt-0">vue3</h5>
                   <p class="mb-0">
-                    ما برای طراحی این سایت از آخرین نسخه ویو یعنی ورژن(3.2.13)
-                    وscript setup که چندین مزیت نسبت به روش های قبلی از جمله کد
-                    نویسی کمتر و عملکرد بهتر در زمان اجرا را دارد استفاده کردیم
+                    ما برای طراحی این سایت از   ویو  
+                     که چندین مزیت نسبت به روش های قبلی از جمله کرد
+                     عملکرد بهتر در زمان اجرا را دارد استفاده کردیم
                     همچنین این سایت با vue-router به صورت spa طراحی شده کمترین
                     رفرش تجربه راحتری به کاربر میبخشد هر چند spa ها seo friendly
                     نیستد تلاش کردیم با وسیله vue-meta , سئو بهتری به سایت
@@ -135,6 +135,9 @@
         </div>
       </div>
     </div>
+  <metainfo>
+    <template v-slot:title="{ content }">{{ content ? `${content} |  درباره ما` : `SITE_NAME` }}</template>
+  </metainfo>
   </section>
 </template>
 <style lang="scss" scoped>

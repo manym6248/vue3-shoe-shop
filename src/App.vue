@@ -1,7 +1,26 @@
 <template >
-  <router-view  />
+
+  <router-view/>
+
+
 </template>
-<script setup>
+<script >
+
+
+
+
+import { useMeta } from 'vue-meta';
+export default{
+
+
+   setup () {
+    useMeta({
+      title: 'مغان شوز',
+      htmlAttrs: { lang: 'fa', amp: true }
+    })
+  }
+}
+
 
 </script>
 
@@ -20,7 +39,7 @@ $body-bg: #f3f3f0;
 
 .containr {
   width: 1200px;
-  height: 100%;
+  height: max-content;
   margin-left: auto;
   margin-right: auto;
 }
@@ -35,7 +54,7 @@ $body-bg: #f3f3f0;
 }
 @media #{$bp-ms} {
   .containr {
-    width: 95%;
+    width: 98%;
   }
   .offcanvas {
     width: 35% !important;
@@ -68,6 +87,7 @@ $body-bg: #f3f3f0;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  width: 100%;
 }
 
 </style>

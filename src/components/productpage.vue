@@ -1,12 +1,12 @@
 <template>
   <div>
     <article>
-      <div class="containr py-5">
+      <div class="containr py-3">
         <div class="card-product">
           <div class="row">
             <div class="col-img col-lg-4 col-xl-4 col-md-4 col-sm-12 col-12">
-              <div class="img-product card shadow" >
-                <div class="img">
+              <div class="img-product card shadow">
+                <div class="img p-2">
                   <inner-image-zoom
                     :src="item.image"
                     :zoomSrc="item.imge"
@@ -35,7 +35,7 @@
                     class="mySwiper rounded-3 images"
                   >
                     <swiper-slide v-for="n in 5" :key="n">
-                      <div class="card card-img" height="100">
+                      <div class="card card-img" height="100" @click="chnge(n)">
                         <img
                           height="100"
                           :src="require(`../assets/png/${n}.png`)"
@@ -50,16 +50,16 @@
             <div class="col-text col-lg-8 col-xl-8 col-md-8 col-sm-12 col-12">
               <div class="card shadow text-product">
                 <div class="name">
-                  <h1 class="ext-truncate"> {{item.title}}</h1>
+                  <h1 class="ext-truncate">{{ item.title }}</h1>
                 </div>
-                <h3 class="price">{{item.price}}$</h3>
+                <h3 class="price">{{ item.price }}$</h3>
                 <div class="description">
                   <p>
-                   {{item.description}}
+                    {{ item.description }}
                   </p>
                 </div>
                 <div class="Discount">
-                  <h3>{{(item?.id*6)/2}}%</h3>
+                  <h3>{{ (item?.id * 6) / 2 }}%</h3>
                 </div>
                 <div class="size">
                   <div class="row">
@@ -137,14 +137,11 @@
                     </div>
                   </div>
                 </div>
-               <div class="row">
-
-                    <button class="btn btn-primary" @click="gotocart(item?.id)">خرید</button>
-               </div>
-                  
-
-             
-              
+                <div class="row">
+                  <button class="btn btn-primary" @click="addTocart(item)">
+                    خرید
+                  </button>
+                </div>
               </div>
             </div>
           </div>
@@ -218,6 +215,7 @@
                     class="form-control"
                     placeholder="نام"
                     aria-label=" name"
+                    v-model="Comment.name"
                   />
                 </div>
 
@@ -227,6 +225,7 @@
                     class="form-control"
                     placeholder="ایمیل"
                     aria-label="email "
+                    v-model="Comment.email"
                   />
                 </div>
               </div>
@@ -236,9 +235,12 @@
                   placeholder="دیدگاه خود را وارد کنید "
                   id="floatingTextarea2"
                   style="height: 100px"
+                  v-model="Comment.text"
                 ></textarea>
                 <div class="row my-3 px-2">
-                  <button class="btn btn-primary">ارسال دیدگاه</button>
+                  <button class="btn btn-primary" @click="sendcomment(item)">
+                    ارسال دیدگاه
+                  </button>
                 </div>
               </div>
             </div>
@@ -255,6 +257,11 @@
         </div>
       </div>
     </article>
+    <metainfo>
+      <template v-slot:title="{ content }">{{
+        content ? `${content} | صحفه محصول ` : `SITE_NAME`
+      }}</template>
+    </metainfo>
   </div>
 </template>
 
@@ -262,7 +269,7 @@
 import InnerImageZoom from "vue-inner-image-zoom";
 import { Swiper, SwiperSlide } from "swiper/vue";
 import SwiperSlider from "../components/SwiperSlider";
-import axios from '../../axios.congfig'
+import axios from "../../axios.congfig";
 
 export default {
   components: {
@@ -273,51 +280,61 @@ export default {
   },
   data() {
     return {
-      item:{},
-      items:[]
-
+      item: {},
+      items: [],
+      components: [],
+      Comment: {
+        email: "",
+        name: "",
+        text: "",
+      },
     };
   },
 
- 
-  created(){
-    axios.get(`/products/${this.$route.params.id}`).then(
-      (res)=>{
-        this.item = {...res.data};
-      }
-    )
-    axios.get(`/products?limit=6`).then(
-      (res)=>{
-        this.items = [...res.data];
-      }
-    )
+  created() {
+    axios.get(`/products/${this.$route.params.id}`).then((res) => {
+      this.item = { ...res.data };
+    });
+    axios.get(`/products?limit=6`).then((res) => {
+      this.items = [...res.data];
+    });
   },
-  
-  methods:{
-        scrollToTop(){
-    window.scrollTo(0,0);
-  },
-   gotocart(id){
-              this.$store.commit('ADD_TO_CART', id)
+
+  methods: {
+    sendcomment(item) {
+      
+
+      let Comment =  this.Comment;
+      
+      this.$store.commit("ADD_TO_COMMENTS", 
+    {Comment , item},
+      );
+    },
+    chnge(n) {
+      this.item.image = require(`../assets/png/${n}.png`);
+    },
+    scrollToTop() {
+      window.scrollTo(0, 0);
+    },
+    addTocart(item) {
+      this.$store.commit("TOAST_TRUE", "به سبد خرید افزوده شد");
+      this.$store.commit("ADD_TO_CART", item);
+    },
+    gotocart(id) {
+      this.$store.commit("ADD_TO_CART", id);
     },
   },
-  watch:{
-    '$route.params.id':function(oldvalue, newvalue){
-      if(oldvalue != newvalue){
-         axios.get(`/products/${this.$route.params.id}`).then(
-      (res)=>{
-        this.item = {...res.data};
-         window.scrollTo(0,0);
+  watch: {
+    "$route.params.id": function (oldvalue, newvalue) {
+      if (oldvalue != newvalue) {
+        axios.get(`/products/${this.$route.params.id}`).then((res) => {
+          this.item = { ...res.data };
+          window.scrollTo(0, 0);
+        });
       }
-    )
-     
-  
-      };
-    }
-
-  }
+    },
+  },
 };
-
 </script>
 
 <style lang="scss" scoped>
@@ -385,8 +402,13 @@ export default {
   .row {
     height: 100%;
     margin: 0;
-    align-items: center;
-
+    .text-product {
+      .row {
+        margin: 0;
+        height: 40px;
+        align-items: center;
+      }
+    }
     h4 {
       width: 60px;
       padding: 0;
@@ -449,11 +471,10 @@ export default {
       .colors {
         @include input-row;
       }
-      
 
       .name {
         padding: 32px;
-        h1{
+        h1 {
           width: 80%;
         }
       }
@@ -464,6 +485,7 @@ export default {
 .col-text,
 .col-img {
   padding: 12px;
+  height: max-content !important;
 }
 .cart-img {
   height: 110px !important;
@@ -493,7 +515,7 @@ export default {
 @mixin col {
   .col-text,
   .col-img {
-    height: 100% !important;
+    height: max-content !important;
     padding: 12px;
   }
 }

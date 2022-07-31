@@ -47,31 +47,36 @@
           </div>
 
           <div class="col-3 pe-0 ps-0 price">
-            <div class="off">80%</div>
+            <div class="off">{{item.Discount}}%</div>
             <h6>{{ item.price }} $</h6>
           </div>
           <div class="col-3 pe-0 ps-0">
             <div class="row row-count">
               <div class="col-4 px-0">
-                <button class="btn btn-primary" @click="count++">+</button>
+                <button class="btn btn-primary"  @click="addTocart(item)">
+                  +
+                </button>
               </div>
               <div class="col-4 px-0">
-                <h6>{{ count }}</h6>
+                <h6>{{ item.quntity }}</h6>
               </div>
               <div class="col-4 px-0">
-                <button class="btn btn-primary" @click="count++">-</button>
+                <button class="btn btn-primary" v-if="item.quntity > 1" @click="minusCart(item)">
+                  -
+                </button>
+                <button class="btn btn-primary" @click="minusCart(item)" v-else disabled>
+                  -
+                </button>
               </div>
             </div>
           </div>
           <div class="col-xl-1 col-lg-1 col-md-2 col-sm-2 col-2 pe-0 ps-0">
-            <button class="btn btn-danger" @click="count++">-</button>
+            <button class="btn btn-danger" @click=" remove(item) ">-</button>
           </div>
         </div>
       </div>
       <div class="card shadow mb-4 mt-2 rounded-4 p-3">
         <div class="row m-0 mb-2 row-cart">
-        
-
           <div class="col-6 pe-0 ps-0 price">
             <h6>مبلغ قابل پرداخت</h6>
           </div>
@@ -81,8 +86,6 @@
           </div>
         </div>
         <div class="row m-0 row-cart">
-       
-
           <div class="col-6 pe-0 ps-0 price">
             <h6>{{totalprice}}</h6>
           </div>
@@ -93,32 +96,39 @@
         </div>
       </div>
     </div>
+   <!-- <metainfo>
+    <template v-slot:title="{ content }">{{ content ? `${content} | سبد خرید` : `SITE_NAME` }}</template>
+  </metainfo> -->
   </div>
 </template>
 
 <script  >
-import Loading from "@/components/local/loading.vue";
 import loading from "../components/local/loading";
 export default {
   components: { loading },
   data() {
     return {
       count: 0,
- 
     };
+  },
+  methods: {
+    addTocart(item) {
+      this.$store.commit("ADD_TO_CART", item);
+    },
+    minusCart(item) {
+      this.$store.commit("MINUS_FROM_CART", item);
+    },
+    remove(item) {
+      this.$store.commit("REMOVE_FROM_CART", item);
+    },
   },
   computed: {
     cartitem() {
-      return this.$store.getters.cartItem;
+      return this.$store.state.products.cart;
     },
-    totalprice() {
-      let sum = 0;
-      for (const i in   this.$store.getters.totalprice) {
-        sum += this.$store.getters.totalprice[i];
-}
-      return sum.toFixed(2)
-    },
-   
+        totalprice() {
+         return this.$store.getters.totalprice.toFixed(2)
+        },
   },
 };
 </script>
@@ -185,6 +195,12 @@ h2 {
     margin: 0px !important ;
   }
 }
-@media #{$bp-min-ms} {
+@media #{$bp-ms} {
+  .cart1{
+
+    height: 600px;
+  overflow-y: scroll;
+  overflow-x:unset !important;
 }
+  }
 </style>

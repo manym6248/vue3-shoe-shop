@@ -1,4 +1,7 @@
 <template >
+<div>
+  
+
   <nav class="navbar bg-primary fixed-top">
     <div class="ma-0 mx-1 pa-1 item-row">
       <div class="containr">
@@ -26,7 +29,7 @@
                             bg-danger
                           "
                         >
-                         {{cartConter.length}}
+                         {{productCart}}
                         </span>
                       </a>
                     </router-link>
@@ -57,7 +60,7 @@
                     <router-link
                       tag="li"
                       class="item rounded-circle btn1"
-                      to="/login"
+                      to="/panel"
                     >
                       <a class="nav-link login"> ورود </a>
                     </router-link>
@@ -90,7 +93,7 @@
                             bg-danger
                           "
                         >
-                         {{cartConter.length}}
+                         {{productCart}}
                         </span>
                       </a>
                     </router-link>
@@ -193,6 +196,7 @@
   </div>
   <div class="spacer"></div>
   <router-view class="pt-16" />
+  <toast></toast>
   <footer class="footer bottom">
     <div class="end">
       <div class="row p-0 m-0">
@@ -202,18 +206,25 @@
       </div>
     </div>
   </footer>
+</div>
+ 
 </template>
 <script >
-
+import Toast from '@/components/local/toast.vue';
 import slidecard from "../components/local/slidecard.vue";
 export default {
   components:{
     slidecard,
+    Toast
   },
-  computed:{
+  computed
+    :{
     cartConter(){
       const count = this.$store.state.products.cart
       return count
+    },
+    productCart(){
+      return this.$store.getters.totalcartitem
     }
   }
 }
@@ -280,8 +291,17 @@ $primary: rebeccapurple;
 }
 
 @media #{$bp-xs} {
+  .footer{
+    h5{
+      margin: 0;
+      font-size: 0.8em;
+    }
+  }
+  .navbar{
+    right: -7px;
+  }
   .offcanvas {
-    width: 50% !important;
+    width: 55% !important;
   }
   .col-footer2 {
     display: none;
@@ -289,7 +309,13 @@ $primary: rebeccapurple;
 }
 @media #{$bp-ms} {
   .offcanvas {
-    width: 35% !important;
+    width: 55% !important;
+  }
+   .footer{
+    h5{
+      margin: 0;
+      font-size: 0.9em;
+    }
   }
 }
 

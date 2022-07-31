@@ -1,65 +1,73 @@
 <template>
-<div class="card shadow rounded-3 overflow-hidden">
+   
+  <div class="card shadow rounded-3 overflow-hidden">
     <div class="img rounded-3">
-
-  <router-link
-    
-    :to="{ name: 'productpage' , params:{id:item.id} }"
-    
-  >
-      <div class="Discount">
-        <h5>{{(item?.id*6)/2}}%</h5>
-      </div>
-      <img
-        class="img-fluid image rounded-3"
-        :src="item?.image"
-        alt=""
-      />
-  </router-link>
+        <div v-if="!item" class="card shadow rounded-3">
+  </div> 
+      <router-link :to="{ name: 'productpage', params: { id: item.id } }">
+        <div class="Discount">
+          <h5>{{ (item?.id * 6) / 2 }}%</h5>
+        </div>
+        <img class="img-fluid image rounded-3" :src="item?.image" alt="" />
+      </router-link>
       <div class="textcart">
         <div class="row row-name m-0 mb-1">
           <div class="col-6">
-            <h4 class="text-truncate">{{item?.title }}</h4>
+            <h4 class="text-truncate">{{ item?.title }}</h4>
           </div>
           <div class="col-6">
             <div class="row1">
-              <h5>{{item?.price}}$</h5>
+              <h5>{{ item?.price }}$</h5>
             </div>
           </div>
         </div>
         <div class="r2">
-          <button class="b1 btn btn-primary" @click.self="addTocart(item?.id)">+</button>
-          <button class="b2 btn btn-primary" @click="gopage(item?.id)">مشاهده</button>
+          <button
+            class="b1 btn btn-primary"
+            @click.self="addTocart(item?.id)"
+            id="liveToastBtn"
+          >
+            +
+          </button>
+
+        
+          <button class="b2 btn btn-primary" @click="gopage(item?.id)">
+            مشاهده
+          </button>
         </div>
       </div>
     </div>
-</div>
+  </div>
 </template>
 
 <script>
-
 export default {
-  props: ['item'],
-  methods:{
-    addTocart(id){
-        this.$store.commit('ADD_TO_CART', id)
-        
+  props:{item:{
+    type:Object,
+    default:false,
+  }},
+  data() {
+    return {
+      toast: false,
+    };
+  },
+  methods: {
+    addTocart() {
+      this.$store.commit('TOAST_TRUE', "به سبد خرید افزوده شد")
+      this.$store.commit("ADD_TO_CART", this.item);
     },
-    gopage(id){
-
-      this.$router.push({ name: 'productpage' , params:{id:id} })
-    }
-
+    gopage(id) {
+      this.$router.push({ name: "productpage", params: { id: id } });
+    },
   },
 
-  created(){
-  }
-
+  created() {},
 };
 </script>
 
 <style lang="scss" scoped>
-@import '../../assets/scss/main.scss';
+@import "../../assets/scss/main.scss";
+
 @mixin Discount-img {
   content: "";
   display: block;
@@ -99,7 +107,6 @@ export default {
       transform: translateY(0);
       opacity: 1;
       height: 94px !important;
-      
     }
   }
   .img {
@@ -116,7 +123,6 @@ export default {
       z-index: 0;
     }
     .textcart {
-      
       opacity: 0;
       background-color: #00000082;
       position: absolute;
@@ -129,13 +135,13 @@ export default {
       border-radius: 0px 0px 0.5em 0.5em;
       .row-name {
         align-items: flex-end;
-      h5 {
-        color: #fb8c00;
-        text-shadow: 0px 1px 3px;
-      }
-      h4 {
-        text-shadow: 0px 1px 3px;
-      }
+        h5 {
+          color: #fb8c00;
+          text-shadow: 0px 1px 3px;
+        }
+        h4 {
+          text-shadow: 0px 1px 3px;
+        }
       }
 
       .row1 {
@@ -171,11 +177,10 @@ export default {
 }
 
 @media #{$bp-max-ms} {
-  .textcart{
-      opacity: 1 !important ;
-      height: 94px !important ;
-      animation: unset !important;
-
+  .textcart {
+    opacity: 1 !important ;
+    height: 94px !important ;
+    animation: unset !important;
   }
 }
 </style>

@@ -94,6 +94,19 @@
       </div>
       <bigcard :items1="products4"></bigcard>
     </article>
+    <div class="load"  v-if="loading" >
+      <div class="card  shadow">
+        <loading></loading>
+        <h5 class="pt-2 mb-0">در حال اتصال...</h5>
+        <div class="progress">
+  <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 101%"></div>
+</div>
+      </div>
+
+    </div>
+     <metainfo>
+    <template v-slot:title="{ content }">{{ content ? `${content} | صحفه اصلی` : `SITE_NAME` }}</template>
+  </metainfo>
   </div>
 </template>
 
@@ -105,7 +118,9 @@ import Slider1 from "./home/slider1.vue";
 import slidecard from "./local/slidecard.vue";
 import slidebigcard from "./local/slidebigcard.vue";
 import slidemediumcard from "./local/slidemediumcard.vue";
+import Loading from './local/loading.vue';
 export default {
+  
 
   components:{
     SwiperSlider,
@@ -113,22 +128,27 @@ export default {
     Slider1,
     slidecard,
     slidebigcard,
-    slidemediumcard
+    slidemediumcard,
+    Loading
   },
   data() {
     return {
-      products:[]
+      products:[],
+      loading:true,
     }
   },
   computed:{
   
     products1(){
+      
       return this.products.slice(0,8)
     },
     products2(){
+
       return this.products.slice(14,19)
     },
     products3(){
+      
       const products = [...this.products1, ...this.products2]
       return products.slice(5,16)
     },
@@ -142,6 +162,7 @@ export default {
     
      axios.get('/products').then((res)=>{
       this.products = res.data
+      this.loading = false;
      
      })
   }
@@ -160,6 +181,33 @@ export default {
 
 <style scoped lang="scss">
 @import "../assets/scss/main.scss";
+.load{
+
+  position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1040;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.514);
+    .card{
+
+      
+        width: 300px;
+        height: 150px;
+        margin: auto;
+        position:fixed;
+        top: 250px;
+        z-index: 2000;
+        left: 0;
+        right: 0;
+.progress{
+
+  bottom: -28px;
+position: relative;
+}
+    }
+}
 
 @mixin cart {
   height: 100%;

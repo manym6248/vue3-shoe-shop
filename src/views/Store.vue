@@ -181,6 +181,9 @@
       </div>
     </div>
   </div>
+   <metainfo>
+    <template v-slot:title="{ content }">{{ content ? `${content} |فروشگاه` : `SITE_NAME` }}</template>
+  </metainfo>
 </template>
 
 <script >

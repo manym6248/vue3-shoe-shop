@@ -53,6 +53,9 @@
     </div>
   </div>
 </div>
+ <metainfo>
+    <template v-slot:title="{ content }">{{ content ? `${content} |  ثبت نام ` : `SITE_NAME` }}</template>
+  </metainfo>
 </template>
 
 <script setup>

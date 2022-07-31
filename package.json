@@ -1,5 +1,5 @@
 {
-  "name": "b2",
+  "name": "moghan-shoe",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -7,6 +7,11 @@
     "build": "vue-cli-service build"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.1.2",
+    "@fortawesome/free-brands-svg-icons": "^6.1.2",
+    "@fortawesome/free-regular-svg-icons": "^6.1.2",
+    "@fortawesome/free-solid-svg-icons": "^6.1.2",
+    "@fortawesome/vue-fontawesome": "^3.0.1",
     "@popperjs/core": "^2.11.5",
     "axios": "^0.27.2",
     "bootstrap": "^5.2.0-beta1",
@@ -15,6 +20,7 @@
     "swiper": "^8.2.6",
     "vue": "^3.2.13",
     "vue-inner-image-zoom": "^2.0.0",
+    "vue-meta": "^3.0.0-alpha.10",
     "vue-router": "^4.0.3",
     "vuex": "^4.0.0"
   },
