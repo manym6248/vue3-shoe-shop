@@ -67,6 +67,7 @@
     background-image: url(../../assets/content/24.jpg);
     background-repeat: no-repeat;
     background-size: cover;
+    min-height: 500px;
 }
 
 .containr {

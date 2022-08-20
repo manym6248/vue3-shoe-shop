@@ -60,7 +60,7 @@
                     <router-link
                       tag="li"
                       class="item rounded-circle btn1"
-                      to="/panel"
+                      to="/login"
                     >
                       <a class="nav-link login"> ورود </a>
                     </router-link>

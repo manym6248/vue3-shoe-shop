@@ -1,37 +1,10 @@
-<template>
+vb<template>
   <div>
     <div class="card shadow">
       <div class="head">
         <div class="row m-0">
-          <div class="search rounded">
-            <div class="input-group rounded-pill mb-3">
-              <li
-                class="form-control"
-                data-bs-toggle="collapse"
-                href="#collapseExample2"
-                aria-expanded="false"
-                aria-controls="collapseExample"
-                @click="collapse = !collapse"
-              
-              >
-                <option selected>{{textgategory}}</option>
-                <option value="
-                "></option>
-                <ul class="shadow " v-if="collapse">
-                  <li
-                    id="collapseExample2"
-                    v-for="(item, i) in gategorys"
-                    :key="i"
-                    :value="i + 1"
-                    @click="getgategory(item)"
-                  >
-                    {{ item }}
-                  </li>
-                </ul>
-              </li>
-            </div>
-          </div>   
-          <div class="search rounded m-0">
+        
+          <div class="search rounded mr-3">
             <div class="input-group rounded-pill mb-3">
               <input
                 type="text"
@@ -86,17 +59,11 @@ import axios from "../../../axios.congfig";
 export default {
   data() {
     return {
-      textgategory:"انتخاب دسته",
-      gategorys: [],
-      collapse:false,
+    
     };
   },
   methods: {
-    getgategory(items) {
-      console.log(items);
-      this.textgategory = items; 
-      this.$store.dispatch("getGategoryProduct", items);
-    },
+ 
   },
   computed: {
     list() {
@@ -104,34 +71,13 @@ export default {
     },
   },
   created() {
-    axios
-      .get("/products/categories")
-      .then((res) => (this.gategorys = [...res.data]));
-    this.$store.dispatch("AllProducts");
+   
   },
 };
 </script>
 
 <style lang="scss" scoped>
-ul {
-  right: 0;
-  padding: 1px;
-  position: absolute;
-  top: 45px;
-  width: 174px;
-  border: 1px solid gainsboro;
-  border-radius: 5px ;
 
-  li {
-
-    background-color: white ;
-    padding: 8px;
-    &:hover{
-      background-color: #7367f0 ;
-      color: white;
-    }
-  }
-}
 .img {
   height: 50px;
   width: 80px;

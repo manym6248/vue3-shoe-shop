@@ -59,6 +59,7 @@ const state = {
     'TOAST_FALSE'(state){state.toast = false},
     'ALL_PRODUCTS'(state, payload){
         state.Product= [...payload]
+        state.StoreProducts= [...payload]
     },
     'STORE_PRODUCTS'(state, payload){
         state.StoreProducts= [...payload]

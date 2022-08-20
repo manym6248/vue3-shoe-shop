@@ -39,11 +39,11 @@
               </ul>
             </div>
 
-            <li class="item shadow-sm">
+            <router-link to="/users" class="item shadow-sm">
               <font-awesome-icon icon="fas fa-users" />
 
               کاربران
-            </li>
+            </router-link>
             <li class="item shadow-sm">
               <font-awesome-icon icon="fas fa-comment-alt" />
 
@@ -54,6 +54,11 @@
 
               پیام ها
             </li>
+            <router-link to="/map" class="item shadow-sm">
+              <font-awesome-icon icon="fas fa-map-location" />
+
+             نقشه
+            </router-link>
           </ul>
         </div>
       </div>

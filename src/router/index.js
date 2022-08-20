@@ -74,14 +74,26 @@ const routes = [
        
         component: () => import(/* webpackChunkName: "AddProduct" */ '../adminpanel/products/AddProduct.vue')
       },
+      {
+        path: '/users',
+        name: 'users',
+       
+        component: () => import(/* webpackChunkName: "AddProduct" */ '../adminpanel/users/users.vue')
+      },
+      {
+        path: '/map',
+        name: 'map',
+       
+        component: () => import(/* webpackChunkName: "map" */ '../adminpanel/map/map.vue')
+      },
     ]
   },
 ]
 
 const router = createRouter({
-  scrollBehavior() {
-    document.getElementById('app').scrollIntoView({ behavior: 'smooth' });
-},
+  scrollBehavior (to, from, savedPosition) {
+    return { x: 0, y: 0 }
+  },
   history: createWebHistory(process.env.BASE_URL),
   routes
 })
