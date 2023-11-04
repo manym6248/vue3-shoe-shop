@@ -1,5 +1,5 @@
 <template>
-    <div class="slide ">
+    <div class="slide rounded  ">
         <div class="container">
             <div class="row">
                 <div class="col-6 col1" >
@@ -30,6 +30,7 @@
     text-align: right;
 }
 .slide{
+    overflow: hidden;
     .container{
         height: 100%;
         .row{

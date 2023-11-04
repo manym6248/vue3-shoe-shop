@@ -1,5 +1,5 @@
 <template>
-  <div class="slide ">
+  <div class="slide rounded ">
     <div class="container">
       <div class="row">
         <div class="col-7 col1">
@@ -27,6 +27,7 @@ export default {};
 }
 .slide {
   height: 100%;
+  overflow: hidden;
   width: 100%;
   background-color: rgb(240, 155, 0);
   .row {

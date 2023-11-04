@@ -1,29 +1,17 @@
 <template >
-
-  <router-view/>
-
-
+  <router-view />
 </template>
 <script >
-
-
-
-
 import { useMeta } from 'vue-meta';
-export default{
-
-
-   setup () {
+export default {
+  setup() {
     useMeta({
       title: 'مغان شوز',
       htmlAttrs: { lang: 'fa', amp: true }
     })
   }
 }
-
-
 </script>
-
 <style lang="scss">
 @import "./assets/css/main.css";
 @import "./assets/scss/main.scss";
@@ -48,39 +36,46 @@ $body-bg: #f3f3f0;
   .containr {
     width: 98%;
   }
+
   .offcanvas {
     width: 50% !important;
   }
 }
+
 @media #{$bp-ms} {
   .containr {
     width: 98%;
   }
+
   .offcanvas {
     width: 35% !important;
   }
 }
+
 @media #{$bp-md} {
   .containr {
     width: 95%;
   }
 }
+
 @media #{$bp-lg} {
   .containr {
     width: 1140px;
   }
 }
 
-@media #{$bp-min-ms}{
-  .offcanvas{
+@media #{$bp-min-ms} {
+  .offcanvas {
     display: none !important;
   }
-.list1{
-  display: none !important;
-}
+
+  .list1 {
+    display: none !important;
+  }
 }
 
 @import "bootstrap";
+
 #app {
   font-family: iranyekan, roboto, Arial;
   -webkit-font-smoothing: antialiased;
@@ -88,6 +83,4 @@ $body-bg: #f3f3f0;
   text-align: center;
   color: #2c3e50;
   width: 100%;
-}
-
-</style>
+}</style>

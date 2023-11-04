@@ -1,5 +1,5 @@
 <template>
-    <div class="slide2">
+    <div class="slide2 rounded">
         <div class="container">
             <div class="row">
                 
@@ -34,7 +34,7 @@
 .slide2{
     height: 100%;
     width: 100%;
-
+     overflow: hidden;
      background-color: rgb(240, 155, 0);
      .container{
         height: 100%;
